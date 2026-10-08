@@ -1,0 +1,70 @@
+h1 {
+    font-size: 47px;
+    color: chartreuse;
+}
+
+body {
+  margin: 20px;
+  font-family: DM Sans;
+  background-color: black;
+}
+.system{
+  color: chartreuse;
+}
+
+.container{
+  display: grid;
+  background-color: black;
+  grid-template-columns: 1fr 1fr 1fr;
+ 
+}
+.label{
+  grid-row: 1;
+  color: chartreuse;
+  padding-left: 10px;
+
+}
+.pane{
+  grid-row: 2;
+  padding-top: 2em;
+  padding-left: 10px;
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  font-size: 2rem;
+  height: 40vh;
+}
+#code-editor-label{
+  grid-column: 1;
+}
+#js-equiv-label{
+  grid-column: 2;
+}
+#web-environment-label{
+  grid-column: 3;
+}
+#terminal-label{
+  grid-row: 3;
+  grid-column: 1/-1;
+  color: white;
+  padding-left: 10px;
+ 
+}
+#codespace{
+  grid-column: 1;
+}
+#js-equiv{
+  grid-column: 2;
+}
+#web-environment{
+  grid-column: 3;
+}
+#terminal{
+  grid-row: 4;
+  grid-column: 1/-1;
+  color: white;
+ 
+}
+#code-editor{
+  color: black;
+}
