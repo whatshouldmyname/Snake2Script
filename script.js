@@ -7,6 +7,8 @@ const error = document.getElementById("terminal");
 function runCode(event){
     event.preventDefault();
     const code = input.value;
+    error.textContent = ""
+    jsOutput.textContent = ""
     if (code.includes("my_button = create_button()")){
         jsOutput.textContent = "const myButton = document.createElement(\"button\");";
         const userButton = document.createElement("button");
