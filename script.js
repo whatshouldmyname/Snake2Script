@@ -1,12 +1,22 @@
-
+import { basicSetup } from "codemirror";
+import { EditorState } from "@codemirror/basic-setup";
+import { EditorView } from "@codemirror/view"
+import { python } from "@codemirror/lang-python"
 const codeSpace = document.getElementById("codespace");
 const input = document.getElementById("code-editor");
 const jsOutput = document.getElementById("js-equiv");
 const webEnvironment = document.getElementById("web-environment");
 const error = document.getElementById("terminal");
+let editor = new EditorView({
+    state: EditorState.create({
+        extensions: [basicSetup, python()],
+
+    }),
+    parent: document.body,
+});
 function runCode(event){
     event.preventDefault();
-    const code = input.value;
+    const code = editor.state.doc.toString();
     error.textContent = ""
     jsOutput.textContent = ""
     if (code.includes("my_button = create_button()")){
