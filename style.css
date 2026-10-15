@@ -78,6 +78,11 @@ body {
   grid-column: 1/-1;
   color: white;
   padding-top: 5px; 
+  display: grid;
+  background-color: #333;
+  border-radius: 8px;
+  height: 40px;
+  text-indent: 3%;
 }
 /* #code-editor{
   color: whitesmoke;
@@ -117,7 +122,7 @@ textarea{
     border-radius: 8px;
     overflow: hidden;
 }
-
+/*had to have gpt help with this codemirror*/
 .cm-editor {
     height: 100%;
     color: whitesmoke;

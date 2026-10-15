@@ -3,6 +3,8 @@ import { basicSetup } from "codemirror";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { python } from "@codemirror/lang-python";
+import { syntaxHighlighting, HighlightStyle, indentUnit} from "@codemirror/language";
+import {tags} from "@lezer/highlight"
 
 const codeSpace = document.getElementById("codespace");
 const input = document.getElementById("code-editor");
@@ -10,11 +12,23 @@ const jsOutput = document.getElementById("js-equiv");
 const webEnvironment = document.getElementById("web-environment");
 const error = document.getElementById("terminal");
 
+const textHighlighting = HighlightStyle.define([
+    {tag: tags.keyword, color: "#7fff00" },
+    {tag: tags.string, color: "#FF8500"},
+    {tag: tags.comment, color: "#71AA39"},
+    {tag: tags.bracket, color: "#00BAFF"},
+    {tag: tags.paren, color: "#E100FF"},
+    {tag: tags.function, color: "#00ff88"}
+
+
+]);
 const editor = new EditorView({
-    state: EditorState.create({
+    state: EditorState.create({ //had to have chatgpt help me integrate the codemirror6
         extensions: [
             basicSetup,
             python(),
+            syntaxHighlighting(textHighlighting),
+            indentUnit.of("    "),
             EditorView.theme({
                 "&": {
                     height: "100%",
