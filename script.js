@@ -1,19 +1,42 @@
+
 import { basicSetup } from "codemirror";
-import { EditorState } from "@codemirror/basic-setup";
-import { EditorView } from "@codemirror/view"
-import { python } from "@codemirror/lang-python"
+import { EditorState } from "@codemirror/state";
+import { EditorView } from "@codemirror/view";
+import { python } from "@codemirror/lang-python";
+
 const codeSpace = document.getElementById("codespace");
 const input = document.getElementById("code-editor");
 const jsOutput = document.getElementById("js-equiv");
 const webEnvironment = document.getElementById("web-environment");
 const error = document.getElementById("terminal");
-let editor = new EditorView({
-    state: EditorState.create({
-        extensions: [basicSetup, python()],
 
+const editor = new EditorView({
+    state: EditorState.create({
+        extensions: [
+            basicSetup,
+            python(),
+            EditorView.theme({
+                "&": {
+                    height: "100%",
+                    backgroundColor: "#333",
+                    color: "#7fff00"
+                },
+                ".cm-content": {
+                    fontFamily: "monospace",
+                    caretColor: "#7fff00"
+                },
+                ".cm-gutters": {
+                    backgroundColor: "#121212",
+                    color: "#333",
+                    border: "none"
+                }
+            })
+        ]
     }),
-    parent: document.body,
+    parent: input
 });
+
+console.log("CodeMirror initialized:", editor);
 function runCode(event){
     event.preventDefault();
     const code = editor.state.doc.toString();
