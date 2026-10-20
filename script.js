@@ -1,17 +1,24 @@
+/*TODO:
+    Implement better checking than exact string matching. (Thinking regex for now, and perhaps parsing later)
+    More lessons
+    Progress Saving
+*/
 
+//chat helped integrate codemirror6
 import { basicSetup } from "codemirror";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { python } from "@codemirror/lang-python";
 import { syntaxHighlighting, HighlightStyle, indentUnit} from "@codemirror/language";
 import {tags} from "@lezer/highlight"
-
+//connect to principal html elements
 const codeSpace = document.getElementById("codespace");
 const input = document.getElementById("code-editor");
 const jsOutput = document.getElementById("js-equiv");
 const webEnvironment = document.getElementById("web-environment");
 const error = document.getElementById("terminal");
-
+const tutorial = document.getElementById("tutorial")
+//sets highlight colors for the user codespace
 const textHighlighting = HighlightStyle.define([
     {tag: tags.keyword, color: "#7fff00" },
     {tag: tags.string, color: "#FF8500"},
@@ -22,6 +29,7 @@ const textHighlighting = HighlightStyle.define([
 
 
 ]);
+
 const editor = new EditorView({
     state: EditorState.create({ //had to have chatgpt help me integrate the codemirror6
         extensions: [
@@ -51,22 +59,30 @@ const editor = new EditorView({
 });
 
 console.log("CodeMirror initialized:", editor);
-function runCode(event){
+function checkCode(event){
     event.preventDefault();
     const code = editor.state.doc.toString();
+    if (code[0]!="m"){
+        error.textContent = "Looks like you entered something wrong! Did you enter \"my_button = create_button()\"?";
+        return
+    }
     error.textContent = ""
     jsOutput.textContent = ""
-    if (code.includes("my_button = create_button()")){
-        jsOutput.textContent = "const myButton = document.createElement(\"button\");";
-        const userButton = document.createElement("button");
-        userButton.textContent = "Button";
-        webEnvironment.appendChild(userButton);
+    let codeNormalized = code.replace(/\s/g, "")
+    if (codeNormalized == "my_button=create_button()"){
+        runCode();
     }else{
         error.textContent = "Looks like you entered something wrong! Did you enter \"my_button = create_button()\"?";
 
 
     };
-
 }
 
-codeSpace.addEventListener("submit", runCode);
+function runCode(){
+    jsOutput.textContent = "const myButton = document.createElement(\"button\");";
+        const userButton = document.createElement("button");
+        userButton.textContent = "Button";
+        webEnvironment.appendChild(userButton);
+}
+
+codeSpace.addEventListener("submit", checkCode);
